@@ -5,7 +5,12 @@ local M = {}
 M.namespace = vim.api.nvim_create_namespace("LvimMarkdownUtilsSToDo")
 
 M.init = function()
-	vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+	vim.api.nvim_create_autocmd({
+		"BufWinEnter",
+		"WinEnter",
+		"InsertLeave",
+		"TextChanged",
+	}, {
 		group = vim.api.nvim_create_augroup("LvimMarkdownUtilsSetHl", { clear = true }),
 		pattern = { "*.md" },
 		callback = M.set_hl,
@@ -18,7 +23,10 @@ M.init = function()
 	})
 
 	vim.api.nvim_create_autocmd({
+		"BufWinEnter",
 		"InsertEnter",
+		"InsertLeave",
+		"TextChanged",
 	}, {
 		group = vim.api.nvim_create_augroup("LvimMarkdownUtilsHideVirtualIcons", { clear = true }),
 		pattern = { "*.md" },
@@ -30,7 +38,11 @@ M.init = function()
 		end,
 	})
 
-	vim.api.nvim_create_autocmd("InsertLeave", {
+	vim.api.nvim_create_autocmd({
+		"BufWinEnter",
+		"InsertLeave",
+		"TextChanged",
+	}, {
 		group = vim.api.nvim_create_augroup("LvimMarkdownUtilsSetVirtualIcons", { clear = true }),
 		pattern = { "*.md" },
 		callback = M.set_virtual_icons,
@@ -40,12 +52,12 @@ end
 
 M.set_hl = function()
 	for _, indicator in pairs(config.to_do.indicators) do
-		vim.fn.matchadd(indicator.hl, "(\\V" .. indicator.literal .. ")")
+		vim.fn.matchadd(indicator.hl, "[\\V" .. indicator.literal .. "]")
 	end
 end
 
 M.has_todo_indicator = function(line)
-	local start, finish = line:find("%[%s?[%s%-_=xy!+?o]%s?%]")
+	local start, finish = line:find("%[%s?[%s%n%p%d%h%c%i%r%g]%s?%]")
 	return start, finish
 end
 
