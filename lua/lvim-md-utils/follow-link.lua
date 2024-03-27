@@ -137,7 +137,7 @@ M.bind_key = function()
 				"n",
 				config.follow_link.key,
 				":lua require('lvim-md-utils.follow-link').follow_link()<cr>",
-				{ buffer = 0, silent = true }
+				{ buffer = 0, silent = true, desc = "Open link" }
 			)
 		end,
 	})

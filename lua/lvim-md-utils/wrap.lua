@@ -198,25 +198,25 @@ M.bind_keys = function()
 				"v",
 				config.wrap.keys.bold,
 				":lua require('lvim-md-utils.wrap').bold()<cr>",
-				{ buffer = 0, silent = true }
+				{ buffer = 0, silent = true, desc = "Bold" }
 			)
 			vim.keymap.set(
 				"v",
 				config.wrap.keys.italic,
 				":lua require('lvim-md-utils.wrap').italic()<cr>",
-				{ buffer = 0, silent = true }
+				{ buffer = 0, silent = true, desc = "Italic" }
 			)
 			vim.keymap.set(
 				"v",
 				config.wrap.keys.link,
 				":lua require('lvim-md-utils.wrap').link()<cr>",
-				{ buffer = 0, silent = true }
+				{ buffer = 0, silent = true, desc = "Link" }
 			)
 			vim.keymap.set(
 				"v",
 				config.wrap.keys.code,
 				":lua require('lvim-md-utils.wrap').code()<cr>",
-				{ buffer = 0, silent = true }
+				{ buffer = 0, silent = true, desc = "Code" }
 			)
 		end,
 	})
