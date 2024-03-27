@@ -52,10 +52,8 @@ end
 
 M.set_hl = function()
 	vim.schedule(function()
-		if vim.bo.filetype == "markdown" then
-			for _, indicator in pairs(config.to_do.indicators) do
-				vim.fn.matchadd(indicator.hl, "[\\V" .. indicator.literal .. "]")
-			end
+		for _, indicator in pairs(config.to_do.indicators) do
+			vim.fn.matchadd(indicator.hl, "\\v\\[" .. indicator.literal .. "\\]")
 		end
 	end)
 end
